@@ -9,6 +9,12 @@ import ResetPassword from './pages/ResetPassword';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import CreateTrip from './pages/CreateTrip';
+import Search from './pages/Search';
+import MyTrips from './pages/MyTrips';
+import UserProfile from './pages/UserProfile';
+import Messages from './pages/Messages';
+import Notifications from './pages/Notifications';
+import TripDetails from './pages/TripDetails';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -44,6 +50,14 @@ export default function App() {
           }
         />
         <Route
+          path="my-trips"
+          element={
+            <ProtectedRoute>
+              <MyTrips />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="profile"
           element={
             <ProtectedRoute>
@@ -56,6 +70,46 @@ export default function App() {
           element={
             <ProtectedRoute>
               <CreateTrip />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="search"
+          element={
+            <ProtectedRoute>
+              <Search />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="u/:id"
+          element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="messages"
+          element={
+            <ProtectedRoute>
+              <Messages />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="notifications"
+          element={
+            <ProtectedRoute>
+              <Notifications />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="trip/:id"
+          element={
+            <ProtectedRoute>
+              <TripDetails />
             </ProtectedRoute>
           }
         />

@@ -1,5 +1,16 @@
 import mongoose from 'mongoose';
 
+const checklistItemSchema = new mongoose.Schema(
+  {
+    text: { type: String, required: true, trim: true, maxlength: 200 },
+    done: { type: Boolean, default: false },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    createdAt: { type: Date, default: Date.now },
+    doneAt: { type: Date },
+  },
+  { _id: true }
+);
+
 const tripSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
@@ -72,6 +83,17 @@ const tripSchema = new mongoose.Schema(
     status: { type: String, enum: ['draft', 'published'], default: 'draft' },
     visibility: { type: String, enum: ['public', 'private'], default: 'public' },
     autoApproveRequests: { type: Boolean, default: true },
+
+    lifecycleStatus: {
+      type: String,
+      enum: ['planned', 'running', 'completed'],
+      default: 'planned',
+      index: true,
+    },
+    startedAt: { type: Date },
+    endedAt: { type: Date },
+    checklist: { type: [checklistItemSchema], default: [] },
+
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

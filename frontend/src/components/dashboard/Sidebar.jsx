@@ -6,6 +6,7 @@ const items = [
   { to: '/search', label: 'Search', icon: '🔎' },
   { to: '/my-trips', label: 'My Trips', icon: '🧭' },
   { to: '/messages', label: 'Messages', icon: '💬' },
+  { to: '/notifications', label: 'Notifications', icon: '🔔' },
   { to: '/profile', label: 'Profile', icon: '👤' },
 ];
 

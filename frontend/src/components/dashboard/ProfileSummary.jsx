@@ -1,13 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-
 const levelStyles = {
   Beginner: 'bg-slate-700 text-slate-100',
   Explorer: 'bg-sky-500/10 text-sky-300 border border-sky-400/40',
   Pro: 'bg-amber-400/10 text-amber-300 border border-amber-300/60',
 };
 
-export default function ProfileSummary({ user }) {
-  const navigate = useNavigate();
+export default function ProfileSummary({ user, onEditProfile }) {
   const levelClass = levelStyles[user.experienceLevel] || levelStyles.Beginner;
 
   return (
@@ -59,7 +56,8 @@ export default function ProfileSummary({ user }) {
 
         <button
           type="button"
-          onClick={() => navigate('/profile')}
+          onClick={onEditProfile}
+          disabled={!onEditProfile}
           className="inline-flex justify-center items-center px-4 py-2 rounded-2xl text-sm font-semibold bg-gradient-to-r from-emerald-400 to-sky-400 text-slate-950 shadow-lg shadow-emerald-900/40 hover:from-emerald-300 hover:to-sky-300 transition-transform hover:-translate-y-0.5 disabled:opacity-60"
         >
           Edit Profile
