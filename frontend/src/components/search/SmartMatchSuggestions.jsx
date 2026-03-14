@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { getBackendAssetUrl } from '../../config.js';
 
 export default function SmartMatchSuggestions({ suggestions }) {
   const navigate = useNavigate();
@@ -111,7 +112,7 @@ export default function SmartMatchSuggestions({ suggestions }) {
                   const photo = trip.coverImage?.startsWith('http')
                     ? trip.coverImage
                     : trip.coverImage
-                    ? `${window.location.origin}${trip.coverImage}`
+                    ? getBackendAssetUrl(trip.coverImage)
                     : 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80';
 
                   return (

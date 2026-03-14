@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { getBackendAssetUrl } from '../../config.js';
 
 const API_BASE = '/api';
 
@@ -10,7 +11,7 @@ export default function TripSearchResults({ trips }) {
     try {
       const token = localStorage.getItem('token');
       const { data } = await axios.post(
-        `${API_BASE}/trips/${tripId}/join`,
+        `${API_BASE}/join/${tripId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -54,7 +55,7 @@ export default function TripSearchResults({ trips }) {
           const photo = trip.coverImage?.startsWith('http')
             ? trip.coverImage
             : trip.coverImage
-            ? `${window.location.origin}${trip.coverImage}`
+            ? getBackendAssetUrl(trip.coverImage)
             : 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80';
 
           const difficulty = trip.difficulty === 'Moderate' ? 'Medium' : trip.difficulty === 'Extreme' ? 'Hard' : trip.difficulty || 'Medium';

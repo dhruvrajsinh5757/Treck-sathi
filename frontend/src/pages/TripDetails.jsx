@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../components/dashboard/Sidebar';
 import { useAuth } from '../context/AuthContext';
+import { getBackendAssetUrl } from '../config.js';
 
 const API_BASE = '/api';
 
@@ -179,7 +180,7 @@ export default function TripDetails() {
   const photo = trip.coverImage?.startsWith('http')
     ? trip.coverImage
     : trip.coverImage
-    ? `${window.location.origin}${trip.coverImage}`
+    ? getBackendAssetUrl(trip.coverImage)
     : 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80';
 
   const organizerName = trip.createdBy?.name || 'Trip organizer';

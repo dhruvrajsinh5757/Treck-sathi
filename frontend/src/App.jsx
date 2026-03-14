@@ -15,6 +15,7 @@ import UserProfile from './pages/UserProfile';
 import Messages from './pages/Messages';
 import Notifications from './pages/Notifications';
 import TripDetails from './pages/TripDetails';
+const API = import.meta.env.VITE_API_URL;
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();

@@ -16,6 +16,7 @@ import messagesRoutes, { conversationIdFor } from './routes/messages.js';
 import notificationsRoutes from './routes/notifications.js';
 import Message from './models/Message.js';
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -24,12 +25,20 @@ if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Allow frontend origin(s). On Render set CLIENT_URL to your Vercel app, e.g. https://treck-sathi-jipx.vercel.app
+const clientUrls = (process.env.CLIENT_URL || 'http://localhost:5173')
+  .split(',')
+  .map((u) => u.trim())
+  .filter(Boolean);
+const corsOrigin = clientUrls.length > 1 ? clientUrls : clientUrls[0] || 'http://localhost:5173';
+
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {
-  cors: { origin: process.env.CLIENT_URL || 'http://localhost:5173', credentials: true },
+  cors: { origin: corsOrigin, credentials: true },
 });
 
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: corsOrigin, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(uploadsDir));

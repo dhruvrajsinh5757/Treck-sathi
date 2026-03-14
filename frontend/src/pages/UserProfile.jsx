@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../components/dashboard/Sidebar';
+import { getBackendAssetUrl } from '../config.js';
 
 const API_BASE = '/api';
 
@@ -192,7 +193,7 @@ export default function UserProfile() {
                   const photo = t.photo?.startsWith('http')
                     ? t.photo
                     : t.photo
-                    ? `${window.location.origin}${t.photo}`
+                    ? getBackendAssetUrl(t.photo)
                     : 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80';
 
                   const diff = t.difficulty === 'Moderate' ? 'Medium' : t.difficulty === 'Extreme' ? 'Hard' : t.difficulty;

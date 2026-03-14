@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/dashboard/Sidebar';
 import ProfileSummary from '../components/dashboard/ProfileSummary';
+import { getBackendAssetUrl } from '../config.js';
 
 const API_BASE = '/api';
 
@@ -170,7 +171,7 @@ export default function Dashboard() {
                       currentTrip.coverImage?.startsWith('http')
                         ? currentTrip.coverImage
                         : currentTrip.coverImage
-                        ? `${window.location.origin}${currentTrip.coverImage}`
+                        ? getBackendAssetUrl(currentTrip.coverImage)
                         : 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80'
                     }
                     alt={currentTrip.title}
