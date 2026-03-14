@@ -26,12 +26,17 @@ if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Allow frontend origin(s). On Render set CLIENT_URL to your Vercel app, e.g. https://treck-sathi-jipx.vercel.app
-const clientUrls = (process.env.CLIENT_URL || 'http://localhost:5173')
+// Allowed frontend origins. Always include Vercel production URL so CORS works on Render even if CLIENT_URL is unset.
+const defaultOrigins = [
+  'http://localhost:5173',
+  'https://treck-sathi-jipx.vercel.app',
+];
+const fromEnv = (process.env.CLIENT_URL || '')
   .split(',')
   .map((u) => u.trim())
   .filter(Boolean);
-const corsOrigin = clientUrls.length > 1 ? clientUrls : clientUrls[0] || 'http://localhost:5173';
+const allowedOrigins = fromEnv.length > 0 ? fromEnv : defaultOrigins;
+const corsOrigin = allowedOrigins.length > 1 ? allowedOrigins : allowedOrigins[0] || defaultOrigins[0];
 
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {

@@ -2,13 +2,10 @@
 
 ## Backend (Render)
 
-1. In your Render service **Environment** tab, add:
-   - **CLIENT_URL** = `https://treck-sathi-jipx.vercel.app`  
-     (your Vercel app URL so CORS allows the frontend)
-
-2. Keep **MONGODB_URI** and any other existing env vars.
-
-3. Redeploy the backend after changing env vars.
+1. The backend **already allows** `https://treck-sathi-jipx.vercel.app` for CORS by default, so login/API from Vercel should work without extra env vars.
+2. Optional: In your Render service **Environment** tab you can set **CLIENT_URL** = `https://treck-sathi-jipx.vercel.app` (or comma-separated URLs) to override allowed origins.
+3. Keep **MONGODB_URI** and any other existing env vars.
+4. **Redeploy** the backend on Render after pulling this fix so the new CORS defaults take effect.
 
 ## Frontend (Vercel)
 
